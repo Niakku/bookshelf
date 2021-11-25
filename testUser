@@ -1,0 +1,21 @@
+var testUser;
+
+User.create({
+    name: {
+     first "Juuso",
+    last: "Nieminen"
+    },
+    email: "juuso.n@mail.com",
+    password: "Kissa123"
+})
+.then(user => {
+    testUser = user;
+    return Subscriber.findOne({
+        email: user.email
+    });
+})
+.then(subscriber => {
+    testUser.subscribedAccount = subscriber;
+    testUser.save().then(user => console.log("user updated"));
+})
+.catch(error => console.log(error.message));
